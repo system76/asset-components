@@ -1,0 +1,72 @@
+{
+  "name": "@system76/asset-components",
+  "version": "0.0.0-development",
+  "description": "System76 image asset url helpers and Vue components",
+  "author": "System76 <hosting@system76.com> (https://system76.com)",
+  "license": "GPL-3.0",
+  "main": "dist/index.common.js",
+  "source": "src/index.js",
+  "scripts": {
+    "build": "npm run build:library",
+    "build:library": "NODE_ENV=production tsc",
+    "lint": "npm run lint:js",
+    "lint:fix": "npm run lint:js:fix",
+    "lint:js": "eslint --ext .ts --ignore-path .gitignore .",
+    "lint:js:fix": "eslint --fix --ext .ts --ignore-path .gitignore .",
+    "test": "ava",
+    "commit": "git-cz",
+    "release": "semantic-release"
+  },
+  "homepage": "https://asset-components.origin76.com/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/system76/asset-components.git"
+  },
+  "bugs": {
+    "url": "https://github.com/system76/asset-components/issues"
+  },
+  "keywords": [
+    "assets",
+    "components",
+    "frontend",
+    "system76",
+    "vue"
+  ],
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=10"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "@system76/eslint-config": "^3.0.0",
+    "ava": "^3.4.0",
+    "commitizen": "^4.0.3",
+    "cz-conventional-changelog": "^3.1.0",
+    "eslint": "^6.8.0",
+    "semantic-release": "^17.0.4",
+    "ts-node": "^8.6.2",
+    "typescript": "^3.8.2",
+    "vue": "^2.6.11"
+  },
+  "ava": {
+    "extensions": [
+      "ts"
+    ],
+    "files": [
+      "test/spec/**/*.ts"
+    ],
+    "require": [
+      "ts-node/register/transpile-only"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}
