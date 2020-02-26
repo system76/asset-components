@@ -4,7 +4,7 @@
   "description": "System76 image asset url helpers and Vue components",
   "author": "System76 <hosting@system76.com> (https://system76.com)",
   "license": "GPL-3.0",
-  "main": "dist/index.common.js",
+  "main": "dist/index.js",
   "source": "src/index.js",
   "scripts": {
     "build": "npm run build:library",

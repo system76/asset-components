@@ -3,4 +3,4 @@
  * Exports all of the public components from the package.
  */
 
-export default {}
+export { default as SysAssetImage } from './components/image'

@@ -5,6 +5,7 @@
     "declaration": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "module": "es6",
     "moduleResolution": "node",
     "noImplicitReturns": true,
     "outDir": "./dist",
@@ -14,6 +15,7 @@
     "target": "es5"
   },
   "exclude": [
+    "dist",
     "node_modules",
     "test"
   ]

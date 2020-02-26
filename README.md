@@ -27,8 +27,22 @@ helpers, and useful Vue components.
 
 ## Using
 
+This package publishes ES modules! You will not be able to use it unless your
+bundler supports it, luckily most do. You should be able to just import away
+with webpack (and in extension nuxt).
+
+```sh
+npm install --save @system76/asset-components
 ```
-npm install --save-dev @system76/asset-components
+
+We recommend you install the components onto your Vue instance for global
+component usage.
+
+```js
+import Vue from 'vue'
+import { install } from '@system76/asset-components'
+
+install(Vue, { domain: 'https://fastly-cdn.example.com' })
 ```
 
 Look at the [published Storybook](https://asset-components.origin76.com/) for

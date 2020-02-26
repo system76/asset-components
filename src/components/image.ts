@@ -6,6 +6,8 @@
 import Vue from 'vue'
 
 export default Vue.extend({
+  functional: true,
+
   props: {
     alt: {
       type: String,
