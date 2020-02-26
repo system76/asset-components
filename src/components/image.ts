@@ -9,6 +9,8 @@ import { IFastlyFit, IFastlyFormat, imageUrl } from '../helpers/fastly'
 import { VUE_FASTLY_MODIFICATION_PROPS } from '../helpers/vue'
 
 export default Vue.extend({
+  name: 'SysAssetImage',
+
   functional: true,
 
   props: {
