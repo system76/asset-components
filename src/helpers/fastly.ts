@@ -49,8 +49,15 @@ export function imageQuery (options?: IFastly) {
   if (options == null || Object.keys(options).length < 1) {
     return ''
   } else {
-    return Object.entries(Object.assign({}, DEFAULT_FASTLY_OPTIONS, options))
+    // The first 4 lines of this is to extend the object while ignoring null
+    // values. It's kinda a mess, but Object.assign doesn't ignore nulls and
+    // Object spread is giving off typescript errors.
+    return [DEFAULT_FASTLY_OPTIONS, options]
+      .map((obj) => Object.entries(obj))
+      .reduce((a, b) => [...a, ...b], [])
       .filter(([, value]) => (value != null))
+      .reverse()
+      .filter(([key], i, a) => (a.findIndex(([n]) => (n === key)) === i))
       .map(([key, value]) => [key.toLowerCase(), value])
       .sort(([aKey], [bKey]) => stringComparator(aKey, bKey))
       .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)

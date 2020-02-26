@@ -14,12 +14,12 @@ export default Vue.extend({
   props: {
     alt: {
       type: String,
-      default: null
+      default: undefined
     },
 
     domain: {
       type: String,
-      default: null
+      default: undefined
     },
 
     src: {
