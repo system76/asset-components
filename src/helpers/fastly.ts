@@ -49,7 +49,7 @@ export function imageQuery (options?: IFastly) {
   if (options == null || Object.keys(options).length < 1) {
     return ''
   } else {
-    return Object.entries(Object.assign({}, options, DEFAULT_FASTLY_OPTIONS))
+    return Object.entries(Object.assign({}, DEFAULT_FASTLY_OPTIONS, options))
       .filter(([, value]) => (value != null))
       .map(([key, value]) => [key.toLowerCase(), value])
       .sort(([aKey], [bKey]) => stringComparator(aKey, bKey))

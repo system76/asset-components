@@ -6,6 +6,7 @@
 import Vue from 'vue'
 
 import { IFastlyFit, IFastlyFormat, imageUrl } from '../helpers/fastly'
+import { VUE_FASTLY_MODIFICATION_PROPS } from '../helpers/vue'
 
 export default Vue.extend({
   functional: true,
@@ -16,50 +17,8 @@ export default Vue.extend({
       default: null
     },
 
-    blur: {
-      type: Number,
-      default: null
-    },
-
-    brightness: {
-      type: Number,
-      default: null
-    },
-
-    contrast: {
-      type: Number,
-      default: null
-    },
-
     domain: {
       type: String,
-      default: null
-    },
-
-    fit: {
-      type: String,
-      default: 'cover',
-      validator: (v) => ['bounds', 'cover', 'crop'].includes(v)
-    },
-
-    format: {
-      type: String,
-      default: null,
-      validator: (v) => ['png', 'jpg', 'pjpg', 'webp'].includes(v)
-    },
-
-    height: {
-      type: Number,
-      default: null
-    },
-
-    quality: {
-      type: Number,
-      default: null
-    },
-
-    saturation: {
-      type: Number,
       default: null
     },
 
@@ -68,10 +27,7 @@ export default Vue.extend({
       required: true
     },
 
-    width: {
-      type: Number,
-      default: null
-    }
+    ...VUE_FASTLY_MODIFICATION_PROPS
   },
 
   render (h, context) {
@@ -79,8 +35,8 @@ export default Vue.extend({
     const fastlyOptions = {
       width: context.props.width,
       height: context.props.height,
-      fit: context.props.fit as IFastlyFit,
-      format: context.props.format as IFastlyFormat,
+      fit: <IFastlyFit> context.props.fit,
+      format: <IFastlyFormat> context.props.format,
       quality: context.props.quality,
       blur: context.props.blur,
       brightness: context.props.brightness,
@@ -88,13 +44,11 @@ export default Vue.extend({
       contrast: context.props.contrast
     }
 
-    return h('img', {
+    return h('img', Object.assign({}, context.data, {
       attrs: {
         alt: context.props.alt,
-        height: context.props.height,
-        src: imageUrl(domain, context.props.src, fastlyOptions),
-        width: context.props.width
+        src: imageUrl(domain, context.props.src, fastlyOptions)
       }
-    })
+    }))
   }
 })
