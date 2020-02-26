@@ -3,15 +3,21 @@
  * A bunch of Fastly image optimization helpers.
  */
 
+/** How you can fit an image when resizing */
+export type IFastlyFit = 'bounds' | 'cover' | 'crop'
+
+/** The image file types fastly can export */
+export type IFastlyFormat = 'png' | 'jpg' | 'pjpg' | 'webp'
+
 export interface IFastly {
   /** The width of the image in pixels */
   width?: Number,
   /** The height of the image in pixels */
   height?: Number,
   /** How the image fits when you resize it down */
-  fit?: 'bounds' | 'cover' | 'crop',
+  fit?: IFastlyFit,
   /** The format the image should output as */
-  format?: 'png' | 'jpg' | 'pjpg' | 'webp',
+  format?: IFastlyFormat,
   /** The quality the image should be optimized to */
   quality?: Number,
   /** The blurriness of the image betwee, 1 and 1000 */
@@ -23,6 +29,10 @@ export interface IFastly {
   /** The contrast of the image between -100 and 100 */
   contrast?: Number
 }
+
+export const DEFAULT_FASTLY_OPTIONS = {
+  fit: 'crop'
+} as IFastly
 
 function stringComparator (a: string, b: string) {
   if (a < b) {
@@ -39,7 +49,8 @@ export function imageQuery (options?: IFastly) {
   if (options == null || Object.keys(options).length < 1) {
     return ''
   } else {
-    return Object.entries(options)
+    return Object.entries(Object.assign({}, options, DEFAULT_FASTLY_OPTIONS))
+      .filter(([, value]) => (value != null))
       .map(([key, value]) => [key.toLowerCase(), value])
       .sort(([aKey], [bKey]) => stringComparator(aKey, bKey))
       .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)

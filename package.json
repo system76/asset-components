@@ -43,11 +43,13 @@
     "access": "public"
   },
   "devDependencies": {
+    "@ava/babel": "^1.0.1",
     "@system76/eslint-config": "^3.0.0",
     "ava": "^3.4.0",
     "commitizen": "^4.0.3",
     "cz-conventional-changelog": "^3.1.0",
     "eslint": "^6.8.0",
+    "esm": "^3.2.25",
     "semantic-release": "^17.0.4",
     "ts-node": "^8.6.2",
     "typescript": "^3.8.2",
@@ -61,12 +63,16 @@
       "test/spec/**/*.ts"
     ],
     "require": [
-      "ts-node/register/transpile-only"
+      "ts-node/register/transpile-only",
+      "esm"
     ]
   },
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
+  },
+  "dependencies": {
+    "remove": "^0.1.5"
   }
 }

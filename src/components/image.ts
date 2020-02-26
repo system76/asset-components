@@ -5,6 +5,8 @@
 
 import Vue from 'vue'
 
+import { IFastlyFit, IFastlyFormat, imageUrl } from '../helpers/fastly'
+
 export default Vue.extend({
   functional: true,
 
@@ -73,6 +75,26 @@ export default Vue.extend({
   },
 
   render (h, context) {
-    return h('img', context.children)
+    const domain = context.props.domain || context.parent.$assetDomain
+    const fastlyOptions = {
+      width: context.props.width,
+      height: context.props.height,
+      fit: context.props.fit as IFastlyFit,
+      format: context.props.format as IFastlyFormat,
+      quality: context.props.quality,
+      blur: context.props.blur,
+      brightness: context.props.brightness,
+      saturation: context.props.saturation,
+      contrast: context.props.contrast
+    }
+
+    return h('img', {
+      attrs: {
+        alt: context.props.alt,
+        height: context.props.height,
+        src: imageUrl(domain, context.props.src, fastlyOptions),
+        width: context.props.width
+      }
+    })
   }
 })
