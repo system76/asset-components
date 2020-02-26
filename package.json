@@ -5,6 +5,7 @@
   "author": "System76 <hosting@system76.com> (https://system76.com)",
   "license": "GPL-3.0",
   "main": "dist/index.js",
+  "module": "dist/index.js",
   "source": "src/index.js",
   "scripts": {
     "start": "start-storybook",
@@ -49,9 +50,11 @@
     "@storybook/addons": "^5.3.14",
     "@storybook/vue": "^5.3.14",
     "@system76/design": "^5.1.0",
+    "@vue/test-utils": "^1.0.0-beta.31",
     "ava": "^3.4.0",
     "babel-loader": "^8.0.6",
     "babel-preset-vue": "^2.0.2",
+    "browser-env": "^3.3.0",
     "commitizen": "^4.0.3",
     "cz-conventional-changelog": "^3.1.0",
     "esm": "^3.2.25",
@@ -71,8 +74,9 @@
       "test/spec/**/*.ts"
     ],
     "require": [
+      "esm",
       "ts-node/register/transpile-only",
-      "esm"
+      "./test/_browser.ts"
     ]
   },
   "config": {
