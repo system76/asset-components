@@ -8,7 +8,6 @@ module.exports = {
     '../src/**/*.stories.ts'
   ],
   addons: [
-    '@storybook/addon-actions',
     '@storybook/addon-knobs/register'
   ]
 }
