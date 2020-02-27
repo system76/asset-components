@@ -1,14 +1,13 @@
 /**
- * src/components/product-thumbnail.ts
+ * src/components/product-thumbnail.vue
  * Displays the small thumbnail for a product.
  */
 
-import Vue, { VNode } from 'vue'
+<script>
+import { imageUrl } from '../utility/fastly'
+import { VUE_FASTLY_MODIFICATION_PROPS } from '../utility/vue'
 
-import { IFastlyFit, IFastlyFormat, imageUrl } from '../helpers/fastly'
-import { VUE_FASTLY_MODIFICATION_PROPS } from '../helpers/vue'
-
-export default Vue.extend({
+export default {
   name: 'SysProductThumbnail',
 
   functional: true,
@@ -27,7 +26,7 @@ export default Vue.extend({
     ...VUE_FASTLY_MODIFICATION_PROPS
   },
 
-  render (h, context): VNode {
+  render (h, context) {
     const productModel = (typeof context.props.product === 'string')
       ? context.props.product
       : context.props.product.model
@@ -46,7 +45,7 @@ export default Vue.extend({
     const fastlyOptions = {
       width: 300,
       height: 300,
-      format: <IFastlyFormat> 'png',
+      format: 'png',
       quality: context.props.quality,
       blur: context.props.blur,
       brightness: context.props.brightness,
@@ -69,4 +68,5 @@ export default Vue.extend({
       })
     ])
   }
-})
+}
+</script>

@@ -4,10 +4,12 @@
  */
 
 module.exports = {
-  stories: [
-    '../src/**/*.stories.ts'
-  ],
+  stories: ['../src/**/*.stories.(js|mdx)'],
+
   addons: [
-    '@storybook/addon-knobs/register'
+    '@storybook/addon-docs',
+    '@storybook/addon-knobs/register',
+    '@storybook/addon-viewport/register',
+    'storybook-addon-vue-info/lib/register'
   ]
 }

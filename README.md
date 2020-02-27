@@ -27,10 +27,6 @@ helpers, and useful Vue components.
 
 ## Using
 
-This package publishes ES modules! You will not be able to use it unless your
-bundler supports it, luckily most do. You should be able to just import away
-with webpack (and in extension nuxt).
-
 ```sh
 npm install --save @system76/asset-components
 ```

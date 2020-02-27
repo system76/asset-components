@@ -1,5 +1,5 @@
 /**
- * src/components/product-thumbnail.stories.ts
+ * src/components/product-thumbnail.stories.js
  * Storybook documentation for product-thumbnail component
  */
 

@@ -1,13 +1,13 @@
 /**
- * test/spec/helpers/html.ts
+ * test/spec/utility/html.js
  * Tests the html helper logic
  */
 
 import test from 'ava'
 
-import * as html from '../../../src/helpers/html'
+import * as html from '../../../src/utility/html'
 
-function queryBuilder (opts: object) {
+function queryBuilder (opts) {
   return Object.entries(opts).map(([k, v]) => `${k}=${v}`).join('&')
 }
 

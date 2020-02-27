@@ -1,13 +1,13 @@
 /**
- * test/spec/helpers/vue.ts
+ * test/spec/utility/vue.js
  * Tests some Vue prop validation
  */
 
-import test, { ExecutionContext } from 'ava'
+import test from 'ava'
 
-import { VUE_FASTLY_MODIFICATION_PROPS as props } from '../../../src/helpers/vue'
+import { VUE_FASTLY_MODIFICATION_PROPS as props } from '../../../src/utility/vue'
 
-function propRangeAssert (t: ExecutionContext, prop: string, min: number, max: number) {
+function propRangeAssert (t, prop, min, max) {
   const runMin = min - 100
   const runMax = max + 100
 
@@ -16,7 +16,7 @@ function propRangeAssert (t: ExecutionContext, prop: string, min: number, max: n
   }
 }
 
-propRangeAssert.title = (_title: string, prop: string, min: number, max: number) =>
+propRangeAssert.title = (_title, prop, min, max) =>
   `${prop} is valid between ${min} and ${max}`
 
 test(propRangeAssert, 'blur', 1, 1000)

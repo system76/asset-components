@@ -1,15 +1,14 @@
 /**
- * src/components/image-responsive.ts
+ * src/components/image-responsive.vue
  * Displays a responsive picture tag
  */
 
-import Vue, { VNode } from 'vue'
+<script>
+import { imageUrl } from '../utility/fastly'
+import { sourceTagAttributes } from '../utility/html'
+import { VUE_FASTLY_MODIFICATION_PROPS } from '../utility/vue'
 
-import { IFastlyFit, IFastlyFormat, IFastly, imageUrl } from '../helpers/fastly'
-import { sourceTagAttributes } from '../helpers/html'
-import { VUE_FASTLY_MODIFICATION_PROPS } from '../helpers/vue'
-
-export default Vue.extend({
+export default {
   name: 'SysProductThumbnail',
 
   functional: true,
@@ -28,17 +27,17 @@ export default Vue.extend({
     fit: {
       type: String,
       default: undefined,
-      validator: (v: string) => ['bounds', 'cover', 'crop'].includes(v)
+      validator: (v) => ['bounds', 'cover', 'crop'].includes(v)
     },
 
     format: {
       type: String,
       default: undefined,
-      validator: (v: string) => ['png', 'jpg', 'pjpg', 'webp'].includes(v)
+      validator: (v) => ['png', 'jpg', 'pjpg', 'webp'].includes(v)
     },
 
     sizes: {
-      type: Array as () => Number[],
+      type: Array,
       default: () => []
     },
 
@@ -50,11 +49,11 @@ export default Vue.extend({
     ...VUE_FASTLY_MODIFICATION_PROPS
   },
 
-  render (h, context): VNode {
+  render (h, context) {
     const domain = context.props.domain || context.parent.$assetDomain
     const fastlyOptions = {
-      fit: <IFastlyFit> context.props.fit,
-      format: <IFastlyFormat> context.props.format,
+      fit: context.props.fit,
+      format: context.props.format,
       quality: context.props.quality,
       blur: context.props.blur,
       brightness: context.props.brightness,
@@ -63,7 +62,7 @@ export default Vue.extend({
     }
 
     const enableWebpSources = (fastlyOptions.format !== 'webp' && !context.props.src.endsWith('webp'))
-    const builder = (opts: IFastly) => imageUrl(domain, context.props.src, {
+    const builder = (opts) => imageUrl(domain, context.props.src, {
       ...fastlyOptions,
       ...opts
     })
@@ -85,4 +84,5 @@ export default Vue.extend({
       })
     ])
   }
-})
+}
+</script>

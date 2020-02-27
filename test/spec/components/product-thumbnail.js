@@ -1,10 +1,10 @@
 /**
- * test/spec/components/image.ts
+ * test/spec/components/image.js
  * Tests the basic image component
  */
 
-import test from 'ava'
 import { mount } from '@vue/test-utils'
+import test from 'ava'
 
 import SysProductThumbnail from '../../../src/components/product-thumbnail'
 

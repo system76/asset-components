@@ -1,5 +1,5 @@
 /**
- * test/_browser.ts
+ * test/_browser.js
  * Sets up a browser environment for ava Vue testing
  */
 

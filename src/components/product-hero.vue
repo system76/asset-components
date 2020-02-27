@@ -1,18 +1,17 @@
 /**
- * src/components/product-hero.ts
+ * src/components/product-hero.vue
  * Displays a product hero
  *
  * TODO: We know the aspect ratio for the image, so we should hard set it to
  * avoid image load jank.
  */
 
-import Vue, { VNode } from 'vue'
+<script>
+import { joinUrl, imageUrl } from '../utility/fastly'
+import { sourceTagAttributes } from '../utility/html'
+import { VUE_FASTLY_MODIFICATION_PROPS } from '../utility/vue'
 
-import { IFastlyFormat, IFastly, joinUrl, imageUrl } from '../helpers/fastly'
-import { sourceTagAttributes } from '../helpers/html'
-import { VUE_FASTLY_MODIFICATION_PROPS } from '../helpers/vue'
-
-export default Vue.extend({
+export default {
   name: 'SysProductHero',
 
   functional: true,
@@ -41,7 +40,7 @@ export default Vue.extend({
     ...VUE_FASTLY_MODIFICATION_PROPS
   },
 
-  render (h, context): VNode {
+  render (h, context) {
     const productModel = (typeof context.props.product === 'string')
       ? context.props.product
       : context.props.product.model
@@ -53,8 +52,8 @@ export default Vue.extend({
     const imageAlt = (context.props.alt != null)
       ? context.props.alt
       : (productName != null)
-      ? `${productName} (${productModel}) hero`
-      : `${productModel} hero`
+        ? `${productName} (${productModel}) hero`
+        : `${productModel} hero`
 
     const domain = context.props.domain || context.parent.$assetDomain
     const path = joinUrl('products', productModel, context.props.src)
@@ -67,7 +66,7 @@ export default Vue.extend({
     ]
 
     const fastlyOptions = {
-      format: <IFastlyFormat> 'jpg',
+      format: 'jpg',
       quality: context.props.quality,
       blur: context.props.blur,
       brightness: context.props.brightness,
@@ -75,7 +74,7 @@ export default Vue.extend({
       contrast: context.props.contrast
     }
 
-    const builder = (opts: IFastly) => imageUrl(domain, path, {
+    const builder = (opts) => imageUrl(domain, path, {
       ...fastlyOptions,
       ...opts
     })
@@ -96,4 +95,5 @@ export default Vue.extend({
       })
     ])
   }
-})
+}
+</script>

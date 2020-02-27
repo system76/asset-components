@@ -1,13 +1,13 @@
 /**
- * test/spec/components/image.ts
+ * test/spec/components/image.js
  * Tests the basic image component
  */
 
-import test from 'ava'
 import { shallowMount } from '@vue/test-utils'
+import test from 'ava'
 
-import SysAssetImage from '../../../src/components/image'
 import { DEFAULT_QUERY } from '../../_helpers'
+import SysAssetImage from '../../../src/components/image'
 
 test('creates an image with src tag', (t) => {
   const wrapper = shallowMount(SysAssetImage, {

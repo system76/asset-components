@@ -1,5 +1,5 @@
 /**
- * src/components/product-hero.stories.ts
+ * src/components/product-hero.stories.js
  * Storybook documentation for product-hero component
  */
 

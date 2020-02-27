@@ -1,5 +1,5 @@
 /**
- * src/components/image.stories.ts
+ * src/components/image.stories.js
  * Storybook documentation for image component
  */
 

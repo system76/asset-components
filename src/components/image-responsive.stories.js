@@ -1,5 +1,5 @@
 /**
- * src/components/image-responsive.stories.ts
+ * src/components/image-responsive.stories.js
  * Storybook documentation for image-responsive component
  */
 

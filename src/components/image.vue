@@ -1,14 +1,13 @@
 /**
- * src/components/image.ts
+ * src/components/image.vue
  * A basic img tag but with fastly API options as props.
  */
 
-import Vue from 'vue'
+<script>
+import { imageUrl } from '../utility/fastly'
+import { VUE_FASTLY_MODIFICATION_PROPS } from '../utility/vue'
 
-import { IFastlyFit, IFastlyFormat, imageUrl } from '../helpers/fastly'
-import { VUE_FASTLY_MODIFICATION_PROPS } from '../helpers/vue'
-
-export default Vue.extend({
+export default {
   name: 'SysAssetImage',
 
   functional: true,
@@ -27,19 +26,19 @@ export default Vue.extend({
     fit: {
       type: String,
       default: undefined,
-      validator: (v: string) => ['bounds', 'cover', 'crop'].includes(v)
+      validator: (v) => ['bounds', 'cover', 'crop'].includes(v)
     },
 
     format: {
       type: String,
       default: undefined,
-      validator: (v: string) => ['png', 'jpg', 'pjpg', 'webp'].includes(v)
+      validator: (v) => ['png', 'jpg', 'pjpg', 'webp'].includes(v)
     },
 
     height: {
       type: Number,
       default: undefined,
-      validator: (v: number) => (v >= 1 && v <= 8192)
+      validator: (v) => (v >= 1 && v <= 8192)
     },
 
     src: {
@@ -50,7 +49,7 @@ export default Vue.extend({
     width: {
       type: Number,
       default: undefined,
-      validator: (v: number) => (v >= 1 && v <= 8192)
+      validator: (v) => (v >= 1 && v <= 8192)
     },
 
     ...VUE_FASTLY_MODIFICATION_PROPS
@@ -61,8 +60,8 @@ export default Vue.extend({
     const fastlyOptions = {
       width: context.props.width,
       height: context.props.height,
-      fit: <IFastlyFit> context.props.fit,
-      format: <IFastlyFormat> context.props.format,
+      fit: context.props.fit,
+      format: context.props.format,
       quality: context.props.quality,
       blur: context.props.blur,
       brightness: context.props.brightness,
@@ -77,4 +76,5 @@ export default Vue.extend({
       }
     }))
   }
-})
+}
+</script>

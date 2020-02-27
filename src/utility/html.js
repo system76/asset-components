@@ -1,16 +1,20 @@
 /**
- * src/helpers/html.ts
- * Some various HTML helpers.
+ * src/utility/html.js
+ * Some various HTML utility.
  */
 
-import { IFastly } from './fastly'
-
-type ISizes = number | { height: number, width: number }
-type IBuilder = (opts: IFastly) => string
-type ISourceOpts = { webp?: boolean }
-
 /** Creates all of the attributes for source tags given the sizes */
-export function sourceTagAttributes (src: string, sizes: ISizes[], builder: IBuilder, opts?: ISourceOpts) {
+/**
+ * sourceTagAttributes
+ * Creates all of the attributes for source tags given the sizes
+ *
+ * @param {string} src Image src
+ * @param {number[]|object[]} sizes The sizes to output for the image
+ * @param {function} builder Function to build the url given the attributes
+ * @param {object} opts Function options
+ * @return {object[]} A list of attributes to attach to source tags
+ */
+export function sourceTagAttributes (src, sizes, builder, opts) {
   return sizes
     .map((val) => (typeof val === 'object') ? val : { width: val })
     .sort((a, b) => (b.width - a.width))
@@ -30,7 +34,7 @@ export function sourceTagAttributes (src: string, sizes: ISizes[], builder: IBui
     .map((attrs) => ({ ...attrs, height: null, width: null }))
 }
 
-function minWidthMediaQuery (width: number) {
+function minWidthMediaQuery (width) {
   const halfWidth = Math.ceil(width / 2)
 
   return [
@@ -41,7 +45,7 @@ function minWidthMediaQuery (width: number) {
   ].join(', ')
 }
 
-function webpSourceAttributes (attrs: IFastly, builder: IBuilder) {
+function webpSourceAttributes (attrs, builder) {
   return {
     ...attrs,
     srcset: builder({ format: 'webp', width: attrs.width }),
@@ -49,8 +53,14 @@ function webpSourceAttributes (attrs: IFastly, builder: IBuilder) {
   }
 }
 
-/** Returns the extension of a file string */
-export function fileExt (file: string) {
+/**
+ * fileExt
+ * Returns the extension of a file string
+ *
+ * @param {string} file
+ * @return {string|null}
+ */
+export function fileExt (file) {
   if (file.indexOf('.') === -1) {
     return null
   } else {
@@ -58,8 +68,14 @@ export function fileExt (file: string) {
   }
 }
 
-/** Returns the mime type for an image extension */
-export function fileType (ext: string) {
+/**
+ * fileType
+ * Returns the mime type for an image extension
+ *
+ * @param {string} file
+ * @return {string|null}
+ */
+export function fileType (ext) {
   switch (ext) {
     case 'webp':
       return 'image/webp'

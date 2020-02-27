@@ -1,10 +1,10 @@
 /**
- * test/spec/components/image-responsive.ts
+ * test/spec/components/image-responsive.js
  * Tests the image responsive component
  */
 
-import test from 'ava'
 import { mount } from '@vue/test-utils'
+import test from 'ava'
 
 import SysAssetImageResponsive from '../../../src/components/image-responsive'
 

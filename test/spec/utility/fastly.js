@@ -1,11 +1,11 @@
 /**
- * test/spec/helpers/fastly.ts
+ * test/spec/utility/fastly.js
  * Tests the simple fastly logic
  */
 
 import test from 'ava'
 
-import * as fastly from '../../../src/helpers/fastly'
+import * as fastly from '../../../src/utility/fastly'
 
 test('imageQuery outputs an empty string if no options passed', (t) => {
   t.is(fastly.imageQuery(), '')
@@ -37,13 +37,6 @@ test('imageUrl does not leave duplicate slashes in url', (t) => {
 
 test('imageUrl includes options', (t) => {
   const url = fastly.imageUrl('https://test.com/', '/image.jpg', { width: 500 })
-  t.true(url.startsWith('https://test.com/image.jpg?'))
-  t.true(url.includes('width=500'))
-})
-
-test('imageUrlFactory creates a new function that works as expected', (t) => {
-  const fn = fastly.imageUrlFactory('https://test.com/')
-  const url = fn('/image.jpg', { width: 500 })
   t.true(url.startsWith('https://test.com/image.jpg?'))
   t.true(url.includes('width=500'))
 })
