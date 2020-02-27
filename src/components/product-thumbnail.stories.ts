@@ -3,7 +3,7 @@
  * Storybook documentation for product-thumbnail component
  */
 
-import { number, object, text } from '@storybook/addon-knobs'
+import { object, text } from '@storybook/addon-knobs'
 
 import SysProductThumbnail from './product-thumbnail'
 
@@ -30,20 +30,6 @@ export const withProduct = () => ({
   template: `
     <SysProductThumbnail
       :product="product"
-    />
-  `
-})
-
-export const withSize = () => ({
-  props: {
-    height: { default: number('height', 300) },
-    width: { default: number('width', 300) }
-  },
-  template: `
-    <SysProductThumbnail
-      product="thelio-r1"
-      :height="height"
-      :width="width"
     />
   `
 })
