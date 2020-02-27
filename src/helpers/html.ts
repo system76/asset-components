@@ -27,7 +27,7 @@ export function sourceTagAttributes (src: string, sizes: number[], builder: IBui
 }
 
 /** Returns a min-width media query for a given size */
-export function minWidthMediaQuery (width: number) {
+function minWidthMediaQuery (width: number) {
   const halfWidth = Math.ceil(width / 2)
 
   return [
@@ -40,7 +40,11 @@ export function minWidthMediaQuery (width: number) {
 
 /** Returns the extension of a file string */
 export function fileExt (file: string) {
-  return file.split('.').pop()
+  if (file.indexOf('.') === -1) {
+    return null
+  } else {
+    return file.split('.').pop()
+  }
 }
 
 /** Returns the mime type for an image extension */
