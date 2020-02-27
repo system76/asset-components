@@ -46,7 +46,6 @@ export default Vue.extend({
     const fastlyOptions = {
       width: 300,
       height: 300,
-      fit: <IFastlyFit> context.props.fit,
       format: <IFastlyFormat> 'png',
       quality: context.props.quality,
       blur: context.props.blur,

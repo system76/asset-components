@@ -24,10 +24,3 @@ test(propRangeAssert, 'brightness', -100, 100)
 test(propRangeAssert, 'contrast', -100, 100)
 test(propRangeAssert, 'quality', 1, 100)
 test(propRangeAssert, 'saturation', -100, 100)
-
-test('fit validates strings as enums', (t) => {
-  t.true(props.fit.validator('bounds'))
-  t.true(props.fit.validator('cover'))
-  t.true(props.fit.validator('crop'))
-  t.false(props.fit.validator('noop'))
-})

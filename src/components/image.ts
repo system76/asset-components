@@ -24,6 +24,12 @@ export default Vue.extend({
       default: undefined
     },
 
+    fit: {
+      type: String,
+      default: undefined,
+      validator: (v: string) => ['bounds', 'cover', 'crop'].includes(v)
+    },
+
     format: {
       type: String,
       default: undefined,

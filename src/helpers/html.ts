@@ -5,14 +5,15 @@
 
 import { IFastly } from './fastly'
 
+type ISizes = number | { height: number, width: number }
 type IBuilder = (opts: IFastly) => string
 type ISourceOpts = { webp?: boolean }
 
 /** Creates all of the attributes for source tags given the sizes */
-export function sourceTagAttributes (src: string, sizes: number[], builder: IBuilder, opts?: ISourceOpts) {
+export function sourceTagAttributes (src: string, sizes: ISizes[], builder: IBuilder, opts?: ISourceOpts) {
   return sizes
-    .sort((a, b) => (b - a))
-    .map((width) => ({ width }))
+    .map((val) => (typeof val === 'object') ? val : { width: val })
+    .sort((a, b) => (b.width - a.width))
     .map((attrs, i, a) => ({
       ...attrs,
       media: (i === a.length - 1) ? null : minWidthMediaQuery(a[i + 1].width + 1),
@@ -26,7 +27,7 @@ export function sourceTagAttributes (src: string, sizes: number[], builder: IBui
         return [...a, attrs]
       }
     }, [])
-    .map((attrs) => ({ ...attrs, width: null }))
+    .map((attrs) => ({ ...attrs, height: null, width: null }))
 }
 
 function minWidthMediaQuery (width: number) {

@@ -65,12 +65,17 @@ export function imageQuery (options?: IFastly) {
   }
 }
 
+/** Joins strings to form a URL */
+export function joinUrl (...parts: string[]) {
+  return parts
+    .map((p) => p.endsWith('/') ? p.substring(0, p.length - 1) : p)
+    .map((p) => p.startsWith('/') ? p.substring(1, p.length) : p)
+    .join('/')
+}
+
 /** Returns a full image URL with included Fastly options */
 export function imageUrl (root: string, image: string, options?: IFastly) {
-  const trimmedRoot = root.endsWith('/') ? root.substring(0, root.length - 1) : root
-  const trimmedImage = image.startsWith('/') ? image.substring(1, image.length) : image
-
-  const url = `${trimmedRoot}/${trimmedImage}`
+  const url = joinUrl(root, image)
   const query = imageQuery(options)
 
   if (query === '') {

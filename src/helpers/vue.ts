@@ -22,12 +22,6 @@ export const VUE_FASTLY_MODIFICATION_PROPS = {
     validator: (v: number) => (v >= -100 && v <= 100)
   },
 
-  fit: {
-    type: String,
-    default: undefined,
-    validator: (v: string) => ['bounds', 'cover', 'crop'].includes(v)
-  },
-
   quality: {
     type: Number,
     default: undefined,
