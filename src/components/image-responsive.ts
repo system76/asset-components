@@ -5,7 +5,7 @@
 
 import Vue, { VNode } from 'vue'
 
-import { IFastlyFit, IFastlyFormat, imageUrl } from '../helpers/fastly'
+import { IFastlyFit, IFastlyFormat, IFastly, imageUrl } from '../helpers/fastly'
 import { sourceTagAttributes } from '../helpers/html'
 import { VUE_FASTLY_MODIFICATION_PROPS } from '../helpers/vue'
 
@@ -56,9 +56,17 @@ export default Vue.extend({
       contrast: context.props.contrast
     }
 
-    const sources = sourceTagAttributes(context.props.src, context.props.sizes, (opts) => {
-      return imageUrl(domain, context.props.src, { ...fastlyOptions, ...opts })
+    const enableWebpSources = (fastlyOptions.format !== 'webp' && !context.props.src.endsWith('webp'))
+    const builder = (opts: IFastly) => imageUrl(domain, context.props.src, {
+      ...fastlyOptions,
+      ...opts
     })
+    const sources = sourceTagAttributes(
+      context.props.src,
+      context.props.sizes,
+      builder,
+      { webp: enableWebpSources }
+    )
       .map((attrs) => h('source', { attrs }))
 
     return h('picture', context.data, [

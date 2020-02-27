@@ -6,27 +6,29 @@
 import { IFastly } from './fastly'
 
 type IBuilder = (opts: IFastly) => string
+type ISourceOpts = { webp?: boolean }
 
 /** Creates all of the attributes for source tags given the sizes */
-export function sourceTagAttributes (src: string, sizes: number[], builder: IBuilder) {
+export function sourceTagAttributes (src: string, sizes: number[], builder: IBuilder, opts?: ISourceOpts) {
   return sizes
     .sort((a, b) => (b - a))
     .map((width) => ({ width }))
-    .map((opts, i, a) => ({
-      ...opts,
+    .map((attrs, i, a) => ({
+      ...attrs,
       media: (i === a.length - 1) ? null : minWidthMediaQuery(a[i + 1].width + 1),
-      srcset: builder({ width: opts.width }),
+      srcset: builder({ width: attrs.width }),
       type: fileType(fileExt(src))
     }))
-    .reduce((a, opts) => ([...a, {
-      ...opts,
-      srcset: builder({ format: 'webp', width: opts.width }),
-      type: fileType('webp')
-    }, opts]), [])
-    .map((opts) => ({ ...opts, width: null }))
+    .reduce((a, attrs) => {
+      if (opts == null || opts.webp) {
+        return [...a, webpSourceAttributes(attrs, builder), attrs]
+      } else {
+        return [...a, attrs]
+      }
+    }, [])
+    .map((attrs) => ({ ...attrs, width: null }))
 }
 
-/** Returns a min-width media query for a given size */
 function minWidthMediaQuery (width: number) {
   const halfWidth = Math.ceil(width / 2)
 
@@ -36,6 +38,14 @@ function minWidthMediaQuery (width: number) {
     `(min-width: ${halfWidth}px) and (min-resolution: 2dppx)`,
     `(min-width: ${halfWidth}px) and (min-resolution: 192dpi)`
   ].join(', ')
+}
+
+function webpSourceAttributes (attrs: IFastly, builder: IBuilder) {
+  return {
+    ...attrs,
+    srcset: builder({ format: 'webp', width: attrs.width }),
+    type: fileType('webp')
+  }
 }
 
 /** Returns the extension of a file string */
