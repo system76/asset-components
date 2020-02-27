@@ -13,7 +13,6 @@ export default {
 }
 
 export const withSrc = () => ({
-  components: { SysAssetImage },
   props: {
     alt: { default: text('alt', 'A test image') },
     src: { default: text('src', '/about/blake-1.jpg') }
@@ -27,7 +26,6 @@ export const withSrc = () => ({
 })
 
 export const withDimensions = () => ({
-  components: { SysAssetImage },
   props: {
     fit: { default: select('fit', ['bounds', 'cover', 'crop'], 'crop') },
     height: { default: number('height', 400) },
@@ -44,7 +42,6 @@ export const withDimensions = () => ({
 })
 
 export const withModifications = () => ({
-  components: { SysAssetImage },
   props: {
     blur: { default: number('blur', 0, { min: 0, max: 9999 }) },
     brightness: { default: number('brightness', 0, { min: -100, max: 100 }) },
