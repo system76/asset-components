@@ -22,22 +22,12 @@ propRangeAssert.title = (_title: string, prop: string, min: number, max: number)
 test(propRangeAssert, 'blur', 1, 1000)
 test(propRangeAssert, 'brightness', -100, 100)
 test(propRangeAssert, 'contrast', -100, 100)
-test(propRangeAssert, 'height', 1, 8192)
 test(propRangeAssert, 'quality', 1, 100)
 test(propRangeAssert, 'saturation', -100, 100)
-test(propRangeAssert, 'width', 1, 8192)
 
 test('fit validates strings as enums', (t) => {
   t.true(props.fit.validator('bounds'))
   t.true(props.fit.validator('cover'))
   t.true(props.fit.validator('crop'))
   t.false(props.fit.validator('noop'))
-})
-
-test('format validates strings as enums', (t) => {
-  t.true(props.format.validator('png'))
-  t.true(props.format.validator('jpg'))
-  t.true(props.format.validator('pjpg'))
-  t.true(props.format.validator('webp'))
-  t.false(props.format.validator('noop'))
 })

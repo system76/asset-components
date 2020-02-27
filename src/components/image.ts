@@ -24,9 +24,27 @@ export default Vue.extend({
       default: undefined
     },
 
+    format: {
+      type: String,
+      default: undefined,
+      validator: (v: string) => ['png', 'jpg', 'pjpg', 'webp'].includes(v)
+    },
+
+    height: {
+      type: Number,
+      default: undefined,
+      validator: (v: number) => (v >= 1 && v <= 8192)
+    },
+
     src: {
       type: String,
       required: true
+    },
+
+    width: {
+      type: Number,
+      default: undefined,
+      validator: (v: number) => (v >= 1 && v <= 8192)
     },
 
     ...VUE_FASTLY_MODIFICATION_PROPS

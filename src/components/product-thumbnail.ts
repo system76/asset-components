@@ -44,10 +44,10 @@ export default Vue.extend({
     const path = `/products/${productModel}/thumb.png`
 
     const fastlyOptions = {
-      width: context.props.width || 300,
-      height: context.props.height || 300,
+      width: 300,
+      height: 300,
       fit: <IFastlyFit> context.props.fit,
-      format: <IFastlyFormat> context.props.format,
+      format: <IFastlyFormat> 'png',
       quality: context.props.quality,
       blur: context.props.blur,
       brightness: context.props.brightness,
