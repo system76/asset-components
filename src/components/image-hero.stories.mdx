@@ -1,0 +1,32 @@
+import { Meta, Preview, Props, Story } from '@storybook/addon-docs/blocks'
+
+import SysAssetImageHero from './image-hero'
+
+<Meta
+  title="Components|SysAssetImageHero"
+  component={SysAssetImageHero}
+/>
+
+# Image Hero
+
+This is a responsive picture tag to make it easier to create hero sized images.
+It automatically resizes to our default hero dimensions.
+
+## Props
+
+<Props of={SysAssetImageHero} />
+
+## Example
+
+<Preview>
+  <Story name="Example">
+    {{
+      template: `
+        <SysAssetImageHero
+          alt="Pop homepage hero"
+          src="/pop/home-hero.jpg"
+        />
+      `
+    }}
+  </Story>
+</Preview>
