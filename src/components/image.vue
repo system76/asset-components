@@ -5,7 +5,6 @@
 
 <script>
 import { imageUrl } from '../utility/fastly'
-import { VUE_FASTLY_MODIFICATION_PROPS } from '../utility/vue'
 
 export default {
   name: 'SysAssetImage',
@@ -13,46 +12,110 @@ export default {
   functional: true,
 
   props: {
+    /**
+     * Alt tag for the image
+     */
     alt: {
       type: String,
       default: undefined
     },
 
+    /**
+     * A number between 1 and 1000 for the amount of blur to apply to the image
+     */
+    blur: {
+      type: Number,
+      default: undefined,
+      validator: (v) => (v >= 1 && v <= 1000)
+    },
+
+    /**
+     * A number between -100 and 100 to manipulate the brightness of the image
+     */
+    brightness: {
+      type: Number,
+      default: undefined,
+      validator: (v) => (v >= -100 && v <= 100)
+    },
+
+    /**
+     * A number between -100 and 100 to manipulate the contrast of the image
+     */
+    contrast: {
+      type: Number,
+      default: undefined,
+      validator: (v) => (v >= -100 && v <= 100)
+    },
+
+    /**
+     * The root CDN domain. Defaults to what is set when the plugin is installed
+     */
     domain: {
       type: String,
       default: undefined
     },
 
+    /**
+     * Enum of 'bounds' 'cover' or 'crop' depending how you want images resized
+     */
     fit: {
       type: String,
       default: undefined,
       validator: (v) => ['bounds', 'cover', 'crop'].includes(v)
     },
 
+    /**
+     * The format you want the image
+     */
     format: {
       type: String,
       default: undefined,
       validator: (v) => ['png', 'jpg', 'pjpg', 'webp'].includes(v)
     },
 
+    /**
+     * The resized image height in pixels
+     */
     height: {
       type: Number,
       default: undefined,
       validator: (v) => (v >= 1 && v <= 8192)
     },
 
+    /**
+     * The quality of optimization you want to be
+     */
+    quality: {
+      type: Number,
+      default: undefined,
+      validator: (v) => (v >= 1 && v <= 100)
+    },
+
+    /**
+     * A number between -100 and 100 to manipulate the saturation of the image
+     */
+    saturation: {
+      type: Number,
+      default: undefined,
+      validator: (v) => (v >= -100 && v <= 100)
+    },
+
+    /**
+     * CDN url of the image
+     */
     src: {
       type: String,
       required: true
     },
 
+    /**
+     * The resized image width in pixels
+     */
     width: {
       type: Number,
       default: undefined,
       validator: (v) => (v >= 1 && v <= 8192)
-    },
-
-    ...VUE_FASTLY_MODIFICATION_PROPS
+    }
   },
 
   render (h, context) {

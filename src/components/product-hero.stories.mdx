@@ -1,0 +1,31 @@
+import { Meta, Preview, Props, Story } from '@storybook/addon-docs/blocks'
+import { array, text } from '@storybook/addon-knobs'
+
+import SysProductHero from './product-hero'
+
+<Meta
+  title="Components|SysProductHero"
+  component={SysProductHero}
+/>
+
+# Product Hero
+
+This is a responsive picture tag to make it easier to access page hero images.
+Put it simply, you can just provide a `product` model string or record object,
+and it will output a hero image. Simple.
+
+## Props
+
+<Props of={SysProductHero} />
+
+## Example
+
+<Preview>
+  <Story name="Example">
+    {{
+      template: `
+        <SysProductHero product="oryp5" />
+      `
+    }}
+  </Story>
+</Preview>

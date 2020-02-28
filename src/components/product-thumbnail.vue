@@ -5,7 +5,6 @@
 
 <script>
 import { imageUrl } from '../utility/fastly'
-import { VUE_FASTLY_MODIFICATION_PROPS } from '../utility/vue'
 
 export default {
   name: 'SysProductThumbnail',
@@ -13,17 +12,66 @@ export default {
   functional: true,
 
   props: {
+    /**
+     * A number between 1 and 1000 for the amount of blur to apply to the image
+     */
+    blur: {
+      type: Number,
+      default: undefined,
+      validator: (v) => (v >= 1 && v <= 1000)
+    },
+
+    /**
+     * A number between -100 and 100 to manipulate the brightness of the image
+     */
+    brightness: {
+      type: Number,
+      default: undefined,
+      validator: (v) => (v >= -100 && v <= 100)
+    },
+
+    /**
+     * A number between -100 and 100 to manipulate the contrast of the image
+     */
+    contrast: {
+      type: Number,
+      default: undefined,
+      validator: (v) => (v >= -100 && v <= 100)
+    },
+
+    /**
+     * The root CDN domain. Defaults to what is set when the plugin is installed
+     */
     domain: {
       type: String,
       default: undefined
     },
 
+    /**
+     * The quality of optimization you want to be
+     */
+    quality: {
+      type: Number,
+      default: undefined,
+      validator: (v) => (v >= 1 && v <= 100)
+    },
+
+    /**
+     * A number between -100 and 100 to manipulate the saturation of the image
+     */
+    saturation: {
+      type: Number,
+      default: undefined,
+      validator: (v) => (v >= -100 && v <= 100)
+    },
+
+    /**
+     * A product model string or object that includes the model string
+     */
     product: {
       type: [String, Object],
       required: true
-    },
-
-    ...VUE_FASTLY_MODIFICATION_PROPS
+    }
   },
 
   render (h, context) {

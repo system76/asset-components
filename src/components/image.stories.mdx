@@ -1,0 +1,36 @@
+import { Meta, Preview, Props, Story } from '@storybook/addon-docs/blocks'
+import { array, text } from '@storybook/addon-knobs'
+
+import SysAssetImage from './image'
+
+<Meta
+  title="Components|SysAssetImage"
+  component={SysAssetImage}
+/>
+
+# Image
+
+This is a very basic component that renders a single `img` tag. It is not
+responsive, and is purely to map props to the fastly image optimization API.
+
+## Props
+
+<Props of={SysAssetImage} />
+
+## Example
+
+<Preview>
+  <Story name="Example">
+    {{
+      template: `
+        <SysAssetImage
+          :blur="10"
+          :height="300"
+          :width="300"
+          alt="An image of Blake"
+          src="/about/blake-1.jpg"
+        />
+      `
+    }}
+  </Story>
+</Preview>

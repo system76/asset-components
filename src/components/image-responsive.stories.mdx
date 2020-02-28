@@ -1,0 +1,34 @@
+import { Meta, Preview, Props, Story } from '@storybook/addon-docs/blocks'
+import { array, text } from '@storybook/addon-knobs'
+
+import SysAssetImageResponsive from './image-responsive'
+
+<Meta
+  title="Components|SysAssetImageResponsive"
+  component={SysAssetImageResponsive}
+/>
+
+# Image Responsive
+
+This is a very basic component that renders out to a `picture` tag. It includes
+multiple sources for each specified size, along with webp `source` tags.
+
+## Props
+
+<Props of={SysAssetImageResponsive} />
+
+## Example
+
+<Preview>
+  <Story name="Example">
+    {{
+      template: `
+        <SysAssetImageResponsive
+          :sizes="[180, 320, 480, 640]"
+          alt="An image of Blake"
+          src="/about/blake-1.jpg"
+        />
+      `
+    }}
+  </Story>
+</Preview>

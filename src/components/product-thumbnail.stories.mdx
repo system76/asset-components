@@ -1,0 +1,30 @@
+import { Meta, Preview, Props, Story } from '@storybook/addon-docs/blocks'
+import { array, text } from '@storybook/addon-knobs'
+
+import SysProductThumbnail from './product-thumbnail'
+
+<Meta
+  title="Components|SysProductThumbnail"
+  component={SysProductThumbnail}
+/>
+
+# Product Thumbnail
+
+This outputs a simple `picture` tag for the 300 by 300 product thumbnail. It has
+minimal options.
+
+## Props
+
+<Props of={SysProductThumbnail} />
+
+## Example
+
+<Preview>
+  <Story name="Example">
+    {{
+      template: `
+        <SysProductThumbnail product="oryp5" />
+      `
+    }}
+  </Story>
+</Preview>
