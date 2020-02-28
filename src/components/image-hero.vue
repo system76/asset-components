@@ -94,12 +94,13 @@ export default {
     ]
 
     const fastlyOptions = {
-      format: 'pjpg',
-      quality: context.props.quality,
       blur: context.props.blur,
       brightness: context.props.brightness,
-      saturation: context.props.saturation,
-      contrast: context.props.contrast
+      contrast: context.props.contrast,
+      fit: 'crop',
+      format: 'pjpg',
+      quality: context.props.quality,
+      saturation: context.props.saturation
     }
 
     const builder = (opts) => {

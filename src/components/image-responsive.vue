@@ -61,7 +61,7 @@ export default {
      */
     fit: {
       type: String,
-      default: undefined,
+      default: 'cover',
       validator: (v) => ['bounds', 'cover', 'crop'].includes(v)
     },
 
@@ -113,13 +113,13 @@ export default {
   render (h, context) {
     const domain = context.props.domain || context.parent.$assetDomain
     const fastlyOptions = {
+      blur: context.props.blur,
+      brightness: context.props.brightness,
+      contrast: context.props.contrast,
       fit: context.props.fit,
       format: context.props.format,
       quality: context.props.quality,
-      blur: context.props.blur,
-      brightness: context.props.brightness,
-      saturation: context.props.saturation,
-      contrast: context.props.contrast
+      saturation: context.props.saturation
     }
 
     const enableWebpSources = (fastlyOptions.format !== 'webp' && !context.props.src.endsWith('webp'))

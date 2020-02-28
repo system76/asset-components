@@ -17,7 +17,7 @@ export default {
      */
     alt: {
       type: String,
-      default: undefined
+      required: true
     },
 
     /**
@@ -120,16 +120,22 @@ export default {
 
   render (h, context) {
     const domain = context.props.domain || context.parent.$assetDomain
+    const fit = (context.props.fit != null)
+      ? context.props.fit
+      : (context.props.height != null && context.props.width != null)
+        ? 'crop'
+        : 'cover'
+
     const fastlyOptions = {
-      width: context.props.width,
-      height: context.props.height,
-      fit: context.props.fit,
-      format: context.props.format,
-      quality: context.props.quality,
       blur: context.props.blur,
       brightness: context.props.brightness,
+      contrast: context.props.contrast,
+      fit,
+      format: context.props.format,
+      height: context.props.height,
+      quality: context.props.quality,
       saturation: context.props.saturation,
-      contrast: context.props.contrast
+      width: context.props.width
     }
 
     return h('img', Object.assign({}, context.data, {

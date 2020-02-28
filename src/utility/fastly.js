@@ -17,10 +17,6 @@ export const FASTLY_API_KEYS = [
   'width'
 ]
 
-export const DEFAULT_FASTLY_OPTIONS = {
-  fit: 'crop'
-}
-
 function stringComparator (a, b) {
   if (a < b) {
     return -1
@@ -46,9 +42,7 @@ export function imageQuery (options) {
     // The first 4 lines of this is to extend the object while ignoring null
     // values. It's kinda a mess, but Object.assign doesn't ignore nulls and
     // Object spread is giving off typescript errors.
-    return [DEFAULT_FASTLY_OPTIONS, options]
-      .map((obj) => Object.entries(obj))
-      .reduce((a, b) => [...a, ...b], [])
+    return Object.entries(options)
       .filter(([key]) => (FASTLY_API_KEYS.includes(key)))
       .filter(([, value]) => (value != null))
       .reverse()

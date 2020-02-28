@@ -102,14 +102,15 @@ export default {
     const path = `/products/${productModel}/thumb.png`
 
     const fastlyOptions = {
-      width: 300,
-      height: 300,
-      format: 'png',
-      quality: context.props.quality,
       blur: context.props.blur,
       brightness: context.props.brightness,
+      contrast: context.props.contrast,
+      fit: 'crop',
+      format: 'png',
+      height: 300,
+      quality: context.props.quality,
       saturation: context.props.saturation,
-      contrast: context.props.contrast
+      width: 300
     }
 
     return h('picture', context.data, [
