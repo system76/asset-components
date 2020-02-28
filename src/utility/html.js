@@ -3,7 +3,6 @@
  * Some various HTML utility.
  */
 
-/** Creates all of the attributes for source tags given the sizes */
 /**
  * sourceTagAttributes
  * Creates all of the attributes for source tags given the sizes
