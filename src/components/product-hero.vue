@@ -7,8 +7,8 @@
  */
 
 <script>
-import { joinUrl, imageUrl } from '../utility/fastly'
-import { sourceTagAttributes } from '../utility/html'
+import { joinUrl } from '../utility/fastly'
+import SysAssetImageHero from './image-hero.vue'
 
 export default {
   name: 'SysProductHero',
@@ -104,51 +104,22 @@ export default {
       ? context.props.product.name
       : null
 
-    const imageAlt = (context.props.alt != null)
+    const alt = (context.props.alt != null)
       ? context.props.alt
       : (productName != null)
         ? `${productName} (${productModel}) hero`
         : `${productModel} hero`
 
-    const domain = context.props.domain || context.parent.$assetDomain
-    const path = joinUrl('products', productModel, context.props.src)
+    const src = joinUrl('products', productModel, context.props.src)
 
-    const sizes = [
-      { width: 640, height: 360 },
-      { width: 1280, height: 450 },
-      { width: 2560, height: 900 },
-      { width: 5120, height: 1800 }
-    ]
-
-    const fastlyOptions = {
-      format: 'pjpg',
-      quality: context.props.quality,
-      blur: context.props.blur,
-      brightness: context.props.brightness,
-      saturation: context.props.saturation,
-      contrast: context.props.contrast
-    }
-
-    const builder = (opts) => imageUrl(domain, path, {
-      ...fastlyOptions,
-      ...opts
+    return h(SysAssetImageHero, {
+      ...context.data,
+      props: {
+        ...context.props,
+        alt,
+        src
+      }
     })
-    const sources = sourceTagAttributes(
-      context.props.src,
-      sizes,
-      builder
-    )
-      .map((attrs) => h('source', { attrs }))
-
-    return h('picture', context.data, [
-      ...sources,
-      h('img', {
-        attrs: {
-          alt: imageAlt,
-          src: imageUrl(domain, path, fastlyOptions)
-        }
-      })
-    ])
   }
 }
 </script>
