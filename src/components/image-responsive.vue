@@ -135,12 +135,19 @@ export default {
     )
       .map((attrs) => h('source', { attrs }))
 
+    const imgOptions = {
+      ...fastlyOptions,
+      ...(typeof context.props.sizes[context.props.sizes.length - 1] === 'number')
+        ? { width: context.props.sizes[context.props.sizes.length - 1] }
+        : context.props.sizes[context.props.sizes.length - 1]
+    }
+
     return h('picture', context.data, [
       ...sources,
       h('img', {
         attrs: {
           alt: context.props.alt,
-          src: imageUrl(domain, context.props.src, fastlyOptions)
+          src: imageUrl(domain, context.props.src, imgOptions)
         }
       })
     ])
