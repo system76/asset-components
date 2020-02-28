@@ -13,6 +13,15 @@ export default {
 
   props: {
     /**
+     * Alt tag for the image. It will default to a sane value with the given
+     * `product` prop
+     */
+    alt: {
+      type: String,
+      default: undefined
+    },
+
+    /**
      * A number between 1 and 1000 for the amount of blur to apply to the image
      */
     blur: {
@@ -83,9 +92,11 @@ export default {
       ? context.props.product.name
       : null
 
-    const imageAlt = (productName != null)
-      ? `${productName} (${productModel}) thumbnail`
-      : `${productModel} thumbnail`
+    const imageAlt = (context.props.alt != null)
+      ? context.props.alt
+      : (productName != null)
+        ? `${productName} (${productModel}) thumbnail`
+        : `${productModel} thumbnail`
 
     const domain = context.props.domain || context.parent.$assetDomain
     const path = `/products/${productModel}/thumb.png`
