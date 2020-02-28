@@ -41,3 +41,17 @@ test('renders correct source tag sizes', (t) => {
   t.true(srcSets[2].includes('1280'))
   t.true(srcSets[3].includes('640'))
 })
+
+test('renders height in source tags', (t) => {
+  const wrapper = mount(SysAssetImageHero, {
+    propsData: {
+      alt: 'Image Test',
+      domain: 'https://example.com',
+      src: '/image.png'
+    }
+  })
+
+  const src = wrapper.find('source').attributes('srcset') || ''
+
+  t.true(src.includes('height='))
+})

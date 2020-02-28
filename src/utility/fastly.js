@@ -3,6 +3,20 @@
  * A bunch of Fastly image optimization helper functions.
  */
 
+export const FASTLY_API_KEYS = [
+  'blur',
+  'brightness',
+  'contrast',
+  'crop',
+  'fit',
+  'format',
+  'height',
+  'quality',
+  'saturation',
+  'sharpen',
+  'width'
+]
+
 export const DEFAULT_FASTLY_OPTIONS = {
   fit: 'crop'
 }
@@ -35,6 +49,7 @@ export function imageQuery (options) {
     return [DEFAULT_FASTLY_OPTIONS, options]
       .map((obj) => Object.entries(obj))
       .reduce((a, b) => [...a, ...b], [])
+      .filter(([key]) => (FASTLY_API_KEYS.includes(key)))
       .filter(([, value]) => (value != null))
       .reverse()
       .filter(([key], i, a) => (a.findIndex(([n]) => (n === key)) === i))

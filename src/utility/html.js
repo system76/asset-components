@@ -21,7 +21,7 @@ export function sourceTagAttributes (src, sizes, builder, opts) {
     .map((attrs, i, a) => ({
       ...attrs,
       media: (i === a.length - 1) ? null : minWidthMediaQuery(a[i + 1].width + 1),
-      srcset: builder({ width: attrs.width }),
+      srcset: builder(attrs),
       type: fileType(fileExt(src))
     }))
     .reduce((a, attrs) => {
@@ -48,7 +48,7 @@ function minWidthMediaQuery (width) {
 function webpSourceAttributes (attrs, builder) {
   return {
     ...attrs,
-    srcset: builder({ format: 'webp', width: attrs.width }),
+    srcset: builder({ ...attrs, format: 'webp' }),
     type: fileType('webp')
   }
 }

@@ -102,10 +102,12 @@ export default {
       contrast: context.props.contrast
     }
 
-    const builder = (opts) => imageUrl(domain, context.props.src, {
-      ...fastlyOptions,
-      ...opts
-    })
+    const builder = (opts) => {
+      return imageUrl(domain, context.props.src, {
+        ...fastlyOptions,
+        ...opts
+      })
+    }
     const sources = sourceTagAttributes(
       context.props.src,
       sizes,
