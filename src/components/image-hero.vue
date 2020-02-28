@@ -3,6 +3,42 @@
  * Displays an image in the hero sizes
  */
 
+<style module>
+  .hero {
+    display: block;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+  }
+
+  .hero::after {
+    content: "";
+    display: block;
+    padding-top: 56.25%;
+    width: 100%;
+  }
+
+  .hero picture,
+  .hero img {
+    bottom: 0;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 100%;
+  }
+
+  @media (min-width: 641px),
+  (min-width: 321px) and (-webkit-min-device-pixel-ratio: 2),
+  (min-width: 321px) and (min-resolution: 2dppx),
+  (min-width: 321px) and (min-resolution: 192dpi) {
+    .hero::after {
+      padding-top: 35.15625%;
+    }
+  }
+</style>
+
 <script>
 import { imageUrl } from '../utility/fastly'
 import { sourceTagAttributes } from '../utility/html'
@@ -121,15 +157,24 @@ export default {
       ...sizes[sizes.length - 1]
     }
 
-    return h('picture', context.data, [
-      ...sources,
-      h('img', {
-        attrs: {
-          alt: context.props.alt,
-          src: imageUrl(domain, context.props.src, imgOptions)
-        }
-      })
+    // We need this line for testing because require-extension-hooks does not
+    // compile the style block, therefor the $style object is null.
+    const heroStyle = (context.$style != null)
+      ? context.$style.hero
+      : null
+
+    return h('div', { class: heroStyle }, [
+      h('picture', context.data, [
+        ...sources,
+        h('img', {
+          attrs: {
+            alt: context.props.alt,
+            src: imageUrl(domain, context.props.src, imgOptions)
+          }
+        })
+      ])
     ])
   }
-}
+}; // eslint-disable-line semi
+// Needed to make Vue test utils and require-extension-hooks work correctly
 </script>
