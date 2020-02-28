@@ -7,12 +7,8 @@ import test from 'ava'
 
 import * as html from '../../../src/utility/html'
 
-function queryBuilder (opts) {
-  return Object.entries(opts).map(([k, v]) => `${k}=${v}`).join('&')
-}
-
 test('sourceTagAttributes outputs webp above normal source tag', (t) => {
-  const sourceTags = html.sourceTagAttributes('image.png', [320, 640], queryBuilder)
+  const sourceTags = html.sourceTagAttributes('', 'image.png', [320, 640])
 
   t.is(sourceTags[0].type, 'image/webp')
   t.true(sourceTags[0].srcset.includes('format=webp'))
@@ -21,7 +17,7 @@ test('sourceTagAttributes outputs webp above normal source tag', (t) => {
 })
 
 test('sourceTagAttributes sorts by largest size to smallest', (t) => {
-  const sourceTags = html.sourceTagAttributes('image.png', [420, 1080, 640], queryBuilder)
+  const sourceTags = html.sourceTagAttributes('', 'image.png', [420, 1080, 640])
 
   t.true(sourceTags[0].srcset.includes('width=1080'))
   t.true(sourceTags[2].srcset.includes('width=640'))
@@ -29,16 +25,24 @@ test('sourceTagAttributes sorts by largest size to smallest', (t) => {
 })
 
 test('sourceTagAttributes sets min width to next width plus one', (t) => {
-  const sourceTags = html.sourceTagAttributes('image.png', [320, 640], queryBuilder)
+  const sourceTags = html.sourceTagAttributes('', 'image.png', [320, 640])
 
   t.true(sourceTags[0].media.includes('(min-width: 321px)'))
 })
 
 test('sourceTagAttributes does not set media on last 2', (t) => {
-  const sourceTags = html.sourceTagAttributes('image.png', [320, 640], queryBuilder)
+  const sourceTags = html.sourceTagAttributes('', 'image.png', [320, 640])
 
   t.is(sourceTags[2].media, null)
   t.is(sourceTags[3].media, null)
+})
+
+test('sourceTagAttributes returns correct type if option specified', (t) => {
+  const sourceTags = html.sourceTagAttributes('', 'image.png', [320, 640], {
+    format: 'pjpg'
+  })
+
+  t.is(sourceTags[1].type, 'image/jpg')
 })
 
 test('fileExt returns correct extension from images', (t) => {

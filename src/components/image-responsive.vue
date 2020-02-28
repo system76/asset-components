@@ -123,17 +123,13 @@ export default {
     }
 
     const enableWebpSources = (fastlyOptions.format !== 'webp' && !context.props.src.endsWith('webp'))
-    const builder = (opts) => imageUrl(domain, context.props.src, {
-      ...fastlyOptions,
-      ...opts
-    })
+
     const sources = sourceTagAttributes(
+      domain,
       context.props.src,
       context.props.sizes,
-      builder,
-      { webp: enableWebpSources }
+      { ...fastlyOptions, webp: enableWebpSources }
     )
-      .map((attrs) => h('source', { attrs }))
 
     const imgOptions = {
       ...fastlyOptions,
@@ -143,7 +139,7 @@ export default {
     }
 
     return h('picture', context.data, [
-      ...sources,
+      ...sources.map((attrs) => h('source', { attrs })),
       h('img', {
         attrs: {
           alt: context.props.alt,

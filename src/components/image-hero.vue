@@ -43,6 +43,13 @@
 import { imageUrl } from '../utility/fastly'
 import { sourceTagAttributes } from '../utility/html'
 
+export const HERO_SIZES = [
+  { width: 640, height: 360 },
+  { width: 1280, height: 450 },
+  { width: 2560, height: 900 },
+  { width: 5120, height: 1800 }
+]
+
 export default {
   name: 'SysAssetImageHero',
 
@@ -121,14 +128,6 @@ export default {
 
   render (h, context) {
     const domain = context.props.domain || context.parent.$assetDomain
-
-    const sizes = [
-      { width: 640, height: 360 },
-      { width: 1280, height: 450 },
-      { width: 2560, height: 900 },
-      { width: 5120, height: 1800 }
-    ]
-
     const fastlyOptions = {
       blur: context.props.blur,
       brightness: context.props.brightness,
@@ -139,23 +138,12 @@ export default {
       saturation: context.props.saturation
     }
 
-    const builder = (opts) => {
-      return imageUrl(domain, context.props.src, {
-        ...fastlyOptions,
-        ...opts
-      })
-    }
     const sources = sourceTagAttributes(
+      domain,
       context.props.src,
-      sizes,
-      builder
+      HERO_SIZES,
+      fastlyOptions
     )
-      .map((attrs) => h('source', { attrs }))
-
-    const imgOptions = {
-      ...fastlyOptions,
-      ...sizes[sizes.length - 1]
-    }
 
     // We need this line for testing because require-extension-hooks does not
     // compile the style block, therefor the $style object is null.
@@ -165,11 +153,14 @@ export default {
 
     return h('div', { class: heroStyle }, [
       h('picture', context.data, [
-        ...sources,
+        ...sources.map((attrs) => h('source', { attrs })),
         h('img', {
           attrs: {
             alt: context.props.alt,
-            src: imageUrl(domain, context.props.src, imgOptions)
+            src: imageUrl(domain, context.props.src, {
+              ...fastlyOptions,
+              ...HERO_SIZES[HERO_SIZES.length - 1]
+            })
           }
         })
       ])
