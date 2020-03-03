@@ -15,3 +15,4 @@ export function install (Vue, options) {
 }
 
 export * from './components'
+export { imageUrl } from './utility/fastly'
