@@ -5,6 +5,24 @@ name: CI
 on: push
 
 jobs:
+  Lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+
+      - name: Install
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
   Test:
     runs-on: ubuntu-latest
 
@@ -47,6 +65,7 @@ jobs:
     name: Deploy (Github Pages)
     runs-on: ubuntu-latest
     needs:
+      - Lint
       - Test
       - Build
 
@@ -85,6 +104,7 @@ jobs:
     name: Deploy (NPM Package)
     runs-on: ubuntu-latest
     needs:
+      - Lint
       - Test
       - Build
 
