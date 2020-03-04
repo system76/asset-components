@@ -1,0 +1,20 @@
+import { Meta } from '@storybook/addon-docs/blocks'
+
+<Meta title="Functions|imageUrl" />
+
+# imageUrl
+
+This is a pretty basic function that formats the given parameters into a fastly
+image url.
+
+## Example
+
+```js
+import { imageUrl } from '@system76/asset-components'
+
+// https://example.com/product/addw1/thumb.png?height=320&width=320
+imageUrl('https://example.com/', '/product/addw1/thumb.png', {
+  height: 320,
+  width: 320
+})
+```
