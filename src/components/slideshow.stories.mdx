@@ -14,6 +14,9 @@ uses Vue's built in `transition` element for animation, so if you want to
 customize it, I would recommend taking a look
 [at the docs](https://vuejs.org/v2/guide/transitions.html).
 
+Keep in mind, because this is made as a slideshow, all of the backgrounds should
+be the same size. Otherwise you will get some weird resize on slide changes.
+
 Note that there is currently a bug with how it renders and transitions. Because
 of this, images do not load until they show, which can cause transitions to be
 sloppy or messed up on the first run.

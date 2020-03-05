@@ -10,7 +10,7 @@
 
   .enter-active,
   .leave-active {
-    transition: opacity 200ms linear;
+    transition: opacity 100ms linear;
   }
 
   .enter,
@@ -47,10 +47,43 @@
 </style>
 
 <script>
+const TRANSITION_COMPONENT_PROPS = [
+  'enterActiveClass',
+  'enterClass',
+  'enterToClass',
+  'leaveActiveClass',
+  'leaveClass',
+  'leaveToClass'
+]
+
 export default {
   name: 'SysSlideshow',
 
   props: {
+    /**
+     * See https://vuejs.org/v2/guide/transitions.html#Custom-Transition-Classes
+     */
+    enterActiveClass: {
+      type: String,
+      default: null
+    },
+
+    /**
+     * See https://vuejs.org/v2/guide/transitions.html#Custom-Transition-Classes
+     */
+    enterClass: {
+      type: String,
+      default: null
+    },
+
+    /**
+     * See https://vuejs.org/v2/guide/transitions.html#Custom-Transition-Classes
+     */
+    enterToClass: {
+      type: String,
+      default: null
+    },
+
     /** The number of milliseconds between slide transitions. */
     delay: {
       type: Number,
@@ -58,8 +91,33 @@ export default {
     },
 
     /**
+     * See https://vuejs.org/v2/guide/transitions.html#Custom-Transition-Classes
+     */
+    leaveActiveClass: {
+      type: String,
+      default: null
+    },
+
+    /**
+     * See https://vuejs.org/v2/guide/transitions.html#Custom-Transition-Classes
+     */
+    leaveClass: {
+      type: String,
+      default: null
+    },
+
+    /**
+     * See https://vuejs.org/v2/guide/transitions.html#Custom-Transition-Classes
+     */
+    leaveToClass: {
+      type: String,
+      default: null
+    },
+
+    /**
      * A CSS class name for the Vue transition component. Set to `false` to
-     * disable any transitions.
+     * disable any transitions. See
+     * https://vuejs.org/v2/guide/transitions.html#Custom-Transition-Classes
      */
     transition: {
       type: [String, Boolean],
@@ -75,13 +133,18 @@ export default {
 
   computed: {
     backgrounds () {
-      return this.$slots.default
-        .filter((vnode) => (vnode != null))
-        .filter((vnode) => (vnode.tag != null))
-        .map((vnode, i) => {
-          vnode.key = i
-          return vnode
-        })
+      if (this.$scopedSlots.default != null) {
+        return this.$scopedSlots
+          .default({ active: this.active })
+          .filter((vnode) => (vnode != null))
+          .filter((vnode) => (vnode.tag != null))
+          .map((vnode, i) => {
+            vnode.key = i
+            return vnode
+          })
+      } else {
+        return []
+      }
     },
 
     foregrounds () {
@@ -99,11 +162,25 @@ export default {
       }
     },
 
+    hasCustomTransitionClasses () {
+      return TRANSITION_COMPONENT_PROPS
+        .map((key) => this[key])
+        .some((v) => (v != null))
+    },
+
     transitionClasses () {
       if (this.transition === false) {
         return {}
       } else if (typeof this.transition === 'string') {
         return { name: this.transition }
+      } else if (this.hasCustomTransitionClasses) {
+        const output = {}
+
+        for (const key in TRANSITION_COMPONENT_PROPS) {
+          output[key] = this[key]
+        }
+
+        return output
       } else {
         return {
           enterClass: this.$style.enter,
@@ -177,5 +254,6 @@ export default {
       ...this.foregrounds
     ])
   }
-}
+}; // eslint-disable-line semi
+// Needed to make Vue test utils and require-extension-hooks work correctly
 </script>
