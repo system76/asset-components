@@ -1,7 +1,7 @@
 import { Selector } from 'testcafe'
 
-fixture `Image Hero`
-  .page `http://localhost:9531/iframe.html?id=components-sysslideshow--with-foreground&viewMode=story`
+fixture`Image Hero`
+  .page`http://localhost:9531/iframe.html?id=components-sysslideshow--with-foreground&viewMode=story`
 
 const container = Selector('#root')
 const background = Selector('picture')
