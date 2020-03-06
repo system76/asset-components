@@ -1,0 +1,71 @@
+import { Meta, Preview, Props, Story } from '@storybook/addon-docs/blocks'
+
+import SysSlideshow from './slideshow'
+
+<Meta
+  title="Components|SysSlideshow"
+  component={SysSlideshow}
+/>
+
+# Slideshow
+
+This rotates between a bunch of given assets in a customizable slideshow. It
+uses Vue's built in `transition` element for animation, so if you want to
+customize it, I would recommend taking a look
+[at the docs](https://vuejs.org/v2/guide/transitions.html).
+
+Keep in mind, because this is made as a slideshow, all of the backgrounds should
+be the same size. Otherwise you will get some weird resize on slide changes.
+
+Note that there is currently a bug with how it renders and transitions. Because
+of this, images do not load until they show, which can cause transitions to be
+sloppy or messed up on the first run.
+
+## Props
+
+<Props of={SysSlideshow} />
+
+## Simple Example
+
+This is a super simple example with just some images.
+
+<Preview>
+  <Story name="Simple">
+    {{
+      template: `
+        <SysSlideshow>
+          <SysProductHero product="oryp5" />
+          <SysProductHero product="addw1" />
+          <SysProductHero product="galp4" />
+          <SysProductHero product="thelio-major-r1" />
+        </SysSlideshow>
+      `
+    }}
+  </Story>
+</Preview>
+
+## Foreground Example
+
+This example includes a foreground element that overlays on top of the images.
+
+<Preview>
+  <Story name="WithForeground">
+    {{
+      template: `
+        <SysSlideshow>
+          <template v-slot:default>
+            <SysProductHero product="oryp5" />
+            <SysProductHero product="addw1" />
+            <SysProductHero product="galp4" />
+            <SysProductHero product="thelio-major-r1" />
+          </template>
+          <template v-slot:foregrounds="{ active }">
+            <div style="color:white;font-size:4rem;transform:translate(-50%,-50%);top:50%;left:50%;">
+              Slide #{{ active }}
+            </div>
+          </template>
+        </SysSlideshow>
+      `
+    }}
+  </Story>
+</Preview>

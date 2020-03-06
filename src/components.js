@@ -8,3 +8,4 @@ export { default as SysAssetImageResponsive } from './components/image-responsiv
 export { default as SysAssetImage } from './components/image.vue'
 export { default as SysProductHero } from './components/product-hero.vue'
 export { default as SysProductThumbnail } from './components/product-thumbnail.vue'
+export { default as SysSlideshow } from './components/slideshow.vue'
