@@ -17,6 +17,10 @@
   <a href="https://standardjs.com">
     <img src="https://img.shields.io/badge/code_style-standard-brightgreen.svg" alt="standard">
   </a>
+
+  <a href="https://asset-components.origin76.com">
+    <img src="https://cdn.jsdelivr.net/gh/storybookjs/brand@master/badge/badge-storybook.svg" alt="Storybook">
+  </a>
 </p>
 
 ---
