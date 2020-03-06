@@ -20,7 +20,7 @@
     "lint:js": "eslint --ext js,vue --ignore-path .gitignore .",
     "lint:js:fix": "eslint --fix --ext js,vue --ignore-path .gitignore .",
     "test": "ava",
-    "test:browser": "testcafe chrome ./test/browser/**",
+    "test:browser": "testcafe remote --qr-code ./test/browser/**",
     "commit": "git-cz",
     "release": "semantic-release"
   },
