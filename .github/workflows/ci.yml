@@ -24,7 +24,7 @@ jobs:
         run: npm run lint
 
   Test_Unit:
-    name: Test (Unit)
+    name: Test (node)
     runs-on: ubuntu-latest
 
     steps:
@@ -43,16 +43,17 @@ jobs:
         run: npm run test
 
   Test_Browser:
-    name: Test
+    name: Test (${{ matrix.browser }} on ${{ matrix.os }})
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         browser:
-          - chrome
-          - firefox
+          - chrome:headless
+          - firefox:headless
         os:
           - ubuntu-latest
           - windows-latest
+          - macos-latest
 
     steps:
       - name: Checkout
