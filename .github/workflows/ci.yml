@@ -44,18 +44,18 @@ jobs:
 
   Test_Browser:
     name: Test (${{ matrix.browser }} on ${{ matrix.os }})
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}-latest
 
     strategy:
       fail-fast: false
       matrix:
         browser:
-          - chrome:headless
-          - firefox:headless
+          - chrome
+          - firefox
         os:
-          - ubuntu-latest
-          - windows-latest
-          - macos-latest
+          - ubuntu
+          - windows
+          - macos
 
     steps:
       - name: Checkout
@@ -72,9 +72,9 @@ jobs:
       - name: Test
         uses: GabrielBB/xvfb-action@v1.0
         with:
-          run: npx testcafe ${{ matrix.browser }} test/browser/**
+          run: npx testcafe ${{ matrix.browser }}:headless test/browser/**
         env:
-          DEBUG: "*"
+          DEBUG: "testcafe:*"
 
   Build:
     runs-on: ubuntu-latest
