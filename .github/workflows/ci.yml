@@ -42,9 +42,9 @@ jobs:
       - name: Test
         run: npm run test
 
-  Test_Browser:
-    name: Test (${{ matrix.browser }} on ${{ matrix.os }})
-    runs-on: ${{ matrix.os }}-latest
+  Test_Browser_Ubuntu:
+    name: Test (${{ matrix.browser }} on ubuntu)
+    runs-on: ubuntu-latest
 
     strategy:
       fail-fast: false
@@ -52,10 +52,44 @@ jobs:
         browser:
           - chrome
           - firefox
-        os:
-          - ubuntu
-          - windows
-          - macos
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+
+      - name: Install
+        run: npm ci
+
+      - name: Setup
+        run: sudo apt-get install -y xvfb
+
+      - name: Test
+        run: |
+          xvfb-run --auto-servernum npx testcafe ${{ matrix.browser }}:headless test/browser/**
+
+      - name: Teardown
+        run: |
+          xvfb_pids=`ps aux | grep tmp/xvfb-run | grep -v grep | awk '{print $2}'`
+          if [ "$xvfb_pids" != "" ]; then
+            sudo kill $xvfb_pids
+          fi
+
+  Test_Browser_Windows:
+    name: Test (${{ matrix.browser }} on windows)
+    runs-on: windows-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        browser:
+          - chrome
+          - edge
+          - firefox
 
     steps:
       - name: Checkout
@@ -70,11 +104,38 @@ jobs:
         run: npm ci
 
       - name: Test
-        uses: GabrielBB/xvfb-action@v1.0
+        run: npx testcafe ${{ matrix.browser }} test/browser/**
+
+  Test_Browser_Macos:
+    name: Test (${{ matrix.browser }} on macos)
+    runs-on: macos-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        browser:
+          - chrome
+          - edge
+          - firefox
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
         with:
-          run: npx testcafe ${{ matrix.browser }}:headless test/browser/**
-        env:
-          DEBUG: "testcafe:*"
+          node-version: 12.x
+
+      - name: Install
+        run: npm ci
+
+      - name: Setup
+        run: |
+          defaults write "TestCafe Browser Tools" "Advanced.SkipPrivacyValidation" -bool YES
+
+      - name: Test
+        run: npx testcafe ${{ matrix.browser }} test/browser/**
 
   Build:
     runs-on: ubuntu-latest
@@ -102,7 +163,9 @@ jobs:
     needs:
       - Lint
       - Test_Unit
-      - Test_Browser
+      - Test_Browser_Ubuntu
+      - Test_Browser_Windows
+      - Test_Browser_Macos
       - Build
 
     if: github.ref == 'refs/heads/master'
@@ -142,7 +205,9 @@ jobs:
     needs:
       - Lint
       - Test_Unit
-      - Test_Browser
+      - Test_Browser_Ubuntu
+      - Test_Browser_Windows
+      - Test_Browser_Macos
       - Build
 
     if: github.ref == 'refs/heads/master'

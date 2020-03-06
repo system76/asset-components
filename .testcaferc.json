@@ -1,5 +1,6 @@
 {
   "appCommand": "start-storybook --ci --docs --port 9531 --quiet",
   "appInitDelay": 10000,
-  "concurrency": 1
+  "concurrency": 1,
+  "quarantineMode": true
 }
