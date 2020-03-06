@@ -23,7 +23,8 @@ jobs:
       - name: Lint
         run: npm run lint
 
-  Test:
+  Test_Unit:
+    name: Test (Unit)
     runs-on: ubuntu-latest
 
     steps:
@@ -40,6 +41,35 @@ jobs:
 
       - name: Test
         run: npm run test
+
+  Test_Browser:
+    name: Test
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        browser:
+          - chrome
+          - firefox
+        os:
+          - ubuntu-latest
+          - windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+
+      - name: Install
+        run: npm ci
+
+      - name: Test
+        uses: DevExpress/testcafe-action@latest
+        with:
+          args: "${{ matrix.browser }} test/browser/**"
 
   Build:
     runs-on: ubuntu-latest
@@ -66,7 +96,8 @@ jobs:
     runs-on: ubuntu-latest
     needs:
       - Lint
-      - Test
+      - Test_Unit
+      - Test_Browser
       - Build
 
     if: github.ref == 'refs/heads/master'
@@ -105,7 +136,8 @@ jobs:
     runs-on: ubuntu-latest
     needs:
       - Lint
-      - Test
+      - Test_Unit
+      - Test_Browser
       - Build
 
     if: github.ref == 'refs/heads/master'
