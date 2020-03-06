@@ -73,6 +73,8 @@ jobs:
         uses: GabrielBB/xvfb-action@v1.0
         with:
           run: npx testcafe ${{ matrix.browser }} test/browser/**
+        env:
+          DEBUG: "*"
 
   Build:
     runs-on: ubuntu-latest
