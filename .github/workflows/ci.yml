@@ -45,7 +45,9 @@ jobs:
   Test_Browser:
     name: Test (${{ matrix.browser }} on ${{ matrix.os }})
     runs-on: ${{ matrix.os }}
+
     strategy:
+      fail-fast: false
       matrix:
         browser:
           - chrome:headless
@@ -68,9 +70,9 @@ jobs:
         run: npm ci
 
       - name: Test
-        uses: DevExpress/testcafe-action@latest
+        uses: GabrielBB/xvfb-action@v1.0
         with:
-          args: "${{ matrix.browser }} test/browser/**"
+          run: npx testcafe ${{ matrix.browser }} test/browser/**
 
   Build:
     runs-on: ubuntu-latest
