@@ -95,6 +95,9 @@
         "./test/_setup.js"
       ]
     },
+    "files": [
+      "test/spec/**/*"
+    ],
     "require": [
       "./test/_browser.js",
       "./test/_setup.js"
