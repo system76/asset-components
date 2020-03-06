@@ -133,18 +133,17 @@ export default {
 
   computed: {
     backgrounds () {
-      if (this.$scopedSlots.default != null) {
-        return this.$scopedSlots
-          .default({ active: this.active })
-          .filter((vnode) => (vnode != null))
-          .filter((vnode) => (vnode.tag != null))
-          .map((vnode, i) => {
-            vnode.key = i
-            return vnode
-          })
-      } else {
-        return []
-      }
+      const tags = (this.$scopedSlots.default != null)
+        ? this.$scopedSlots.default({ active: this.active })
+        : (this.$slots.default || [])
+
+      return tags
+        .filter((vnode) => (vnode != null))
+        .filter((vnode) => (vnode.tag != null))
+        .map((vnode, i) => {
+          vnode.key = i
+          return vnode
+        })
     },
 
     foregrounds () {
