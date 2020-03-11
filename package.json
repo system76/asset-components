@@ -20,6 +20,7 @@
     "lint:js": "eslint --ext js,vue --ignore-path .gitignore .",
     "lint:js:fix": "eslint --fix --ext js,vue --ignore-path .gitignore .",
     "test": "ava",
+    "test:browser": "testcafe remote --qr-code ./test/browser/**",
     "commit": "git-cz",
     "release": "semantic-release"
   },
@@ -67,6 +68,8 @@
     "css-loader": "^3.4.2",
     "cz-conventional-changelog": "^3.0.2",
     "eslint": "^6.8.0",
+    "eslint-plugin-testcafe": "^0.2.1",
+    "http-server": "^0.12.1",
     "require-extension-hooks": "^0.3.3",
     "require-extension-hooks-babel": "^1.0.0",
     "require-extension-hooks-vue": "^3.0.0",
@@ -78,6 +81,7 @@
     "rollup-plugin-vue": "^5.1.6",
     "semantic-release": "^16.0.3",
     "storybook-addon-vue-info": "^1.4.1",
+    "testcafe": "^1.8.2",
     "vue": "^2.6.11",
     "vue-docgen-api": "^4.7.6",
     "vue-docgen-loader": "^1.3.0",
@@ -92,6 +96,9 @@
         "./test/_setup.js"
       ]
     },
+    "files": [
+      "test/spec/**/*"
+    ],
     "require": [
       "./test/_browser.js",
       "./test/_setup.js"
