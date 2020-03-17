@@ -151,8 +151,8 @@ export default {
       ? context.$style.hero
       : null
 
-    return h('div', { class: heroStyle }, [
-      h('picture', context.data, [
+    return h('div', { ...context.data, class: heroStyle }, [
+      h('picture', [
         ...sources.map((attrs) => h('source', { attrs })),
         h('img', {
           attrs: {

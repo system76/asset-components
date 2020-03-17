@@ -147,18 +147,17 @@ export default {
     },
 
     foregrounds () {
-      if (this.$scopedSlots.foregrounds != null) {
-        return this.$scopedSlots
-          .foregrounds({ active: this.active })
-          .filter((vnode) => (vnode != null))
-          .filter((vnode) => (vnode.tag != null))
-          .map((vnode) => {
-            vnode.data.class = this.$style.foreground
-            return vnode
-          })
-      } else {
-        return []
-      }
+      const tags = (this.$scopedSlots.foregrounds != null)
+        ? this.$scopedSlots.foregrounds({ active: this.active })
+        : (this.$slots.foregrounds || [])
+
+      return tags
+        .filter((vnode) => (vnode != null))
+        .filter((vnode) => (vnode.tag != null))
+        .map((vnode, i) => {
+          vnode.data.class = this.$style.foreground
+          return vnode
+        })
     },
 
     hasCustomTransitionClasses () {
