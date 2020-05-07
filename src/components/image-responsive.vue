@@ -3,6 +3,13 @@
  * Displays a responsive picture tag
  */
 
+<style module>
+  .img {
+    height: auto;
+    max-width: 100%;
+  }
+</style>
+
 <script>
 import { imageUrl } from '../utility/fastly'
 import { sourceTagAttributes } from '../utility/html'
@@ -144,9 +151,12 @@ export default {
         attrs: {
           alt: context.props.alt,
           src: imageUrl(domain, context.props.src, imgOptions)
-        }
+        },
+        // During unit tests, we don't compile styles, so context.$style is null
+        class: (context.$style != null) ? context.$style.img : null
       })
     ])
   }
-}
+}; // eslint-disable-line semi
+// Needed to make Vue test utils and require-extension-hooks work correctly
 </script>

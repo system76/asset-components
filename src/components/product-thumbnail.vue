@@ -3,6 +3,13 @@
  * Displays the small thumbnail for a product.
  */
 
+<style module>
+  .img {
+    height: auto;
+    max-width: 100%;
+  }
+</style>
+
 <script>
 import { imageUrl } from '../utility/fastly'
 
@@ -124,9 +131,12 @@ export default {
         attrs: {
           alt: imageAlt,
           src: imageUrl(domain, path, fastlyOptions)
-        }
+        },
+        // During unit tests, we don't compile styles, so context.$style is null
+        class: (context.$style != null) ? context.$style.img : null
       })
     ])
   }
-}
+}; // eslint-disable-line semi
+// Needed to make Vue test utils and require-extension-hooks work correctly
 </script>
