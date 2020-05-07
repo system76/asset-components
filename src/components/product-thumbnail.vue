@@ -124,9 +124,17 @@ export default {
         attrs: {
           alt: imageAlt,
           src: imageUrl(domain, path, fastlyOptions)
-        }
+        },
+        class: context.$style.img
       })
     ])
   }
 }
 </script>
+
+<style module>
+  .img {
+    height: auto;
+    max-width: 100%;
+  }
+</style>

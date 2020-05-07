@@ -141,9 +141,19 @@ export default {
     return h('img', Object.assign({}, context.data, {
       attrs: {
         alt: context.props.alt,
-        src: imageUrl(domain, context.props.src, fastlyOptions)
-      }
+        height: context.props.height,
+        src: imageUrl(domain, context.props.src, fastlyOptions),
+        width: context.props.width
+      },
+      class: context.$style.img
     }))
   }
 }
 </script>
+
+<style module>
+  .img {
+    height: auto;
+    max-width: 100%;
+  }
+</style>

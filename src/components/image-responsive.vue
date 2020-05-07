@@ -144,9 +144,17 @@ export default {
         attrs: {
           alt: context.props.alt,
           src: imageUrl(domain, context.props.src, imgOptions)
-        }
+        },
+        class: context.$style.img
       })
     ])
   }
 }
 </script>
+
+<style module>
+  .img {
+    height: auto;
+    max-width: 100%;
+  }
+</style>
