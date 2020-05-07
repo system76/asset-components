@@ -3,6 +3,13 @@
  * A basic img tag but with fastly API options as props.
  */
 
+<style module>
+  .img {
+    height: auto;
+    max-width: 100%;
+  }
+</style>
+
 <script>
 import { imageUrl } from '../utility/fastly'
 
@@ -148,12 +155,6 @@ export default {
       class: context.$style.img
     }))
   }
-}
+}; // eslint-disable-line semi
+// Needed to make Vue test utils and require-extension-hooks work correctly
 </script>
-
-<style module>
-  .img {
-    height: auto;
-    max-width: 100%;
-  }
-</style>
