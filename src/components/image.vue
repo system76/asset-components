@@ -152,7 +152,8 @@ export default {
         src: imageUrl(domain, context.props.src, fastlyOptions),
         width: context.props.width
       },
-      class: context.$style.img
+      // During unit tests, we don't compile styles, so context.$style is null
+      class: (context.$style != null) ? context.$style.img : null
     }))
   }
 }; // eslint-disable-line semi

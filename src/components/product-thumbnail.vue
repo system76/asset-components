@@ -132,7 +132,8 @@ export default {
           alt: imageAlt,
           src: imageUrl(domain, path, fastlyOptions)
         },
-        class: context.$style.img
+        // During unit tests, we don't compile styles, so context.$style is null
+        class: (context.$style != null) ? context.$style.img : null
       })
     ])
   }

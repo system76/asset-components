@@ -152,7 +152,8 @@ export default {
           alt: context.props.alt,
           src: imageUrl(domain, context.props.src, imgOptions)
         },
-        class: context.$style.img
+        // During unit tests, we don't compile styles, so context.$style is null
+        class: (context.$style != null) ? context.$style.img : null
       })
     ])
   }
