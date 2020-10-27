@@ -100,6 +100,15 @@ export default {
     },
 
     /**
+     * The format you want the image
+     */
+    format: {
+      type: String,
+      default: 'pjpg',
+      validator: (v) => ['png', 'jpg', 'pjpg', 'webp'].includes(v)
+    },
+
+    /**
      * The quality of optimization you want to be
      */
     quality: {
@@ -133,7 +142,7 @@ export default {
       brightness: context.props.brightness,
       contrast: context.props.contrast,
       fit: 'crop',
-      format: 'pjpg',
+      format: context.props.format,
       quality: context.props.quality,
       saturation: context.props.saturation
     }
