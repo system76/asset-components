@@ -61,6 +61,15 @@ export default {
     },
 
     /**
+     * The format you want the image
+     */
+    format: {
+      type: String,
+      default: undefined,
+      validator: (v) => ['png', 'jpg', 'pjpg', 'webp'].includes(v)
+    },
+
+    /**
      * The quality of optimization you want to be
      */
     quality: {
